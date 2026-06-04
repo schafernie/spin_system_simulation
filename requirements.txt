@@ -1,0 +1,6 @@
+Pathon3
+numpy
+matplotlib
+scipy
+make 
+g++ 
