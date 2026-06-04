@@ -2,7 +2,7 @@
 
 Monte Carlo simulation of the J1-J2 random-bond Ising model on a $d$-dimensional hypercubic lattice. Each bond is independently drawn as a weak coupling $J_2$ with probability $p$ or a strong coupling $J_1 = 1$ with probability $1-p$. The Hamiltonian is
 
-$$\mathcal{H} = -\sum_{\langle i,j \rangle} J_{ij} \, s_i s_j, \quad s_i \in \{-1, +1\},$$
+$$\mathcal{H} = -\sum_{\langle i,j \rangle} J_{ij} \, s_i s_j, \quad s_i = \pm 1,$$
 
 where the quenched disorder $\{J_{ij}\}$ is sampled once per disorder realization and then held fixed during thermal sampling. The simulation uses the **Swendsen-Wang cluster algorithm** for efficient sampling near the critical temperature.
 
@@ -146,9 +146,11 @@ Loads disorder-sampling output, computes disorder averages of $\langle|m|\rangle
 
 Key options: `--fixed_disorder` to load fixed-disorder files, `--disorder_seed` / `--disorder_sample` to select the realization, `--plot` / `--save` to control output.
 
-**`analysis/j1j2_comparison_exact_solution_plot.py`** — comparison with exact solution
+**`analysis/j1j2_comparison_exact_solution_plot.py`** — comparison with exact solution 
 
-Loads the exact free energy from `data/exact/` and compares energy and specific heat (derived via numerical differentiation) against the MC disorder averages.
+
+Loads the exact free energy from `data/exact/` and compares energy and specific heat (derived via numerical differentiation) against the MC disorder averages. The numerical exact solution is taken from Phys. Rev. E, 87, 043303 (arXiv:1301.1252v1), see https://github.com/a-alan-middleton/IsingPartitionFn.
+
 
 ## Dependencies
 
