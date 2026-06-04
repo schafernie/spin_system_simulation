@@ -128,7 +128,7 @@ All output is written to `data/new/` (created automatically if absent).
 - `J1J2DisorderSamplingFixed_D{D}_L{L}_P{p}_J{J2}_T{T}_ThermalSamples{n}_DisorderSeed{s}_DisorderSample{c}_.dat` (with `--FixedDisorder`)
 
 Each row is one disorder realization with columns:
-`disorder_sample  |m|  |m|²  |m|³  |m|⁴  e  e²  e³  e⁴`
+`disorder_sample  |m|  |m|^2  |m|^3 |m|^4  e  e^2  e^3  e^4`
 
 where $m = M/N$ and $e = E/N$ are per-spin quantities.
 
@@ -154,7 +154,7 @@ Loads the exact free energy from `data/exact/` and compares energy and specific 
 
 **C++**: C++17 compiler, OpenMP. Optionally Intel oneAPI (`icpx`, MKL) for parallel RNG (`USE_MKL=1`).
 
-**Python**: Python 3, NumPy, Matplotlib. Install with:
+**Python**: NumPy, Matplotlib. Install with:
 
 ```bash
 pip install -r requirements.txt
