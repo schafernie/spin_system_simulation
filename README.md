@@ -1,8 +1,8 @@
 # J1-J2 Random-Bond Ising Model: Monte Carlo Simulation
 
-Monte Carlo simulation of the J1-J2 random-bond Ising model on a $d$-dimensional hypercubic lattice. Each bond is independently drawn as a weak coupling $J_2$ with probability $p$ or a strong coupling $J_1 = 1$ with probability $1-p$. The Hamiltonian is
+Monte Carlo simulation of the J1-J2 random-bond Ising model on a $d$-dimensional hypercubic lattice. Each bond is independently drawn as a weak coupling $0<J_2<1$ with probability $p$ or a strong coupling $J_1 = 1$ with probability $1-p$. The Hamiltonian is
 
-$$\mathcal{H} = -\sum_{\langle i,j \rangle} J_{ij} \, s_i s_j, \quad s_i = \pm 1,$$
+$$\mathcal{H} = -\sum_{\langle i,j \rangle} J_{ij} s_i s_j, \quad s_i = \pm 1,$$
 
 where the quenched disorder $\{J_{ij}\}$ is sampled once per disorder realization and then held fixed during thermal sampling. The simulation uses the **Swendsen-Wang cluster algorithm** for efficient sampling near the critical temperature.
 
