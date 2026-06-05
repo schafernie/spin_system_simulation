@@ -1,4 +1,4 @@
-# J1-J2 Random-Bond Ising Model: Monte Carlo Simulation
+# Disordered Ising Model: Monte Carlo Simulation
 
 Monte Carlo simulation of the J1-J2 random-bond Ising model on a $d$-dimensional hypercubic lattice. Each bond is independently drawn as a weak coupling $0<J_2<1$ with probability $p$ or a strong coupling $J_1 = 1$ with probability $1-p$. The Hamiltonian is
 
