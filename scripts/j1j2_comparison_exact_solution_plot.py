@@ -16,7 +16,7 @@ NUM_SITES = LINEAR_SIZE ** 2
 # --- Load exact free energy ---
 exact_file = (
     f"J1J2FreeEnergy_P{P:.4f}_J{J:.4f}"
-    f"_DisorderSeed{DISORDER_SEED}_DisorderSample{DISORDER_SAMPLE}_.dat"
+    f"_DisorderSeed{DISORDER_SEED}_DisorderSample{DISORDER_SAMPLE}_MKL_.dat"
 )
 exact_data = np.loadtxt(DATA_PATH + "exact/" + exact_file, skiprows=1)
 T_exact = exact_data[:, 0]
@@ -38,6 +38,9 @@ T_mc_e = mc_energy_data[:, 0]
 e_mc = mc_energy_data[:, 1]
 e_mc_err = mc_energy_data[:, 2]
 
+
+
+#%%
 # --- Load MC energy variance (for specific heat) ---
 mc_var_file = f"J1J2VarE_D2_L{LINEAR_SIZE}_P{P:.4f}_J{J:.4f}_DisorderSeed{DISORDER_SEED}_DisorderSample{DISORDER_SAMPLE}_.dat"
 mc_var_data = np.loadtxt(DATA_PATH + "results/" + mc_var_file, skiprows=1)
@@ -74,6 +77,6 @@ axes[2].legend()
 
 fig.tight_layout()
 
-save_name = f"J1J2_comparison_L{LINEAR_SIZE}_P{P:.4f}_J{J:.4f}_DisorderSeed{DISORDER_SEED}_DisorderSample{DISORDER_SAMPLE}.pdf"
+save_name = f"J1J2Comparison_L{LINEAR_SIZE}_P{P:.4f}_J{J:.4f}_DisorderSeed{DISORDER_SEED}_DisorderSample{DISORDER_SAMPLE}.pdf"
 fig.savefig(PLOT_PATH + save_name, bbox_inches="tight", pad_inches=0.03)
 plt.show()

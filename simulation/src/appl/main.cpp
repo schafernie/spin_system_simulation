@@ -70,10 +70,13 @@ int main(int argc, char* argv[]) {
              << "  --FixedDisorder             keep disorder sample fixed across all iterations\n";
         return 1;
     }
+    if(inParameters.thermalSeed == 0)
+        inParameters.thermalSeed = inParameters.disorderSeed+inParameters.disorderSample;  
     if (option == 0){
         j1j2_equilibration(inParameters);
     }
     else if (option == 1) {
+ 
         j1j2_disorder_sampling(inParameters);
     }
     else if (option == -1) {

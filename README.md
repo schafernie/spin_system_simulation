@@ -12,21 +12,23 @@ The workflow has three stages:
 
 1. **Build** — compile the C++ simulator with `make`
 2. **Run** — generate disorder-sampling data with `mc_sim`
-3. **Analyze** — compute disorder-averaged observables and Binder cumulant with the Python scripts in `analysis/`
+3. **Analyze** — compute disorder-averaged observables and Binder cumulant with the Python scripts in `scripts/`
 
 ## Quickstart
 
 ```bash
 # Build
-cd cplusplus
+cd simulation
 make
 
-# Run a temperature scan (disorder sampling, 10 disorder realizations per T)
-bash run_temperature_scan.sh
+# Run everything (equilibration, temperature scan, analysis)
+bash run_all.sh
 
-# Analyze disorder-averaged observables
-cd ../analysis
-python3 j1j2_disorder_sampling_analysis.py
+# Or run steps individually:
+bash run_equilibration.sh                        # check equilibration (produces plots in plots/)
+bash run_temperature_scan_single_sample.sh       # temperature scan
+cd ../scripts
+python3 j1j2_disorder_sampling_analysis.py       # disorder-averaged observables
 ```
 
 Default parameters: lattice size $L=32$, dimension $d=2$, bond occupation probability $p=0.5$, weak coupling $J_2=0.1$.
@@ -38,9 +40,10 @@ spin_system_simulation/
 ├── README.md
 ├── LICENSE
 ├── requirements.txt
-├── cplusplus/
+├── simulation/
 │   ├── Makefile                               # Build system (supports GCC and Intel icpx/MKL)
 │   ├── testrun.sh                             # Quick test: single sampling run
+│   ├── run_equilibration.sh                   # Equilibration run across disorder samples
 │   ├── run_temperature_scan.sh                # Temperature scan, disorder seed increments with T
 │   ├── run_temperature_scan_single_sample.sh  # Temperature scan, fixed disorder seed
 │   └── src/
@@ -54,7 +57,8 @@ spin_system_simulation/
 │       ├── observables/                       # Energy and magnetization
 │       ├── random_numbers/                    # RNG wrapper
 │       └── statistics/                        # Moment estimators
-├── analysis/
+├── scripts/
+│   ├── j1j2_equilibration_plot.py            # Equilibration convergence plots (single sample + disorder average)
 │   ├── j1j2_disorder_sampling_analysis.py    # Disorder-averaged magnetization, energy, Binder cumulant
 │   └── j1j2_comparison_exact_solution_plot.py # Compare MC results against exact free energy
 └── data/                                      # Generated simulation data (not tracked by git)
@@ -63,13 +67,13 @@ spin_system_simulation/
 ## Building
 
 ```bash
-cd cplusplus
+cd simulation
 make           # default: GCC + OpenMP
 make USE_MKL=1 # Intel icpx + MKL parallel RNG
 make clean     # remove objects and binary
 ```
 
-The binary `mc_sim` is placed in `cplusplus/`.
+The binary `mc_sim` is placed in `simulation/`.
 
 ## Running the Simulator
 
@@ -138,15 +142,19 @@ where $m = M/N$ and $e = E/N$ are per-spin quantities.
 
 ## Analysis Scripts
 
-Both scripts read from `../data/new/` and write results to `../data/results/`.
+All scripts read from `../data/new/` and write results to `../data/results/`.
 
-**`analysis/j1j2_disorder_sampling_analysis.py`** — disorder-averaged thermodynamics
+**`scripts/j1j2_equilibration_plot.py`** — equilibration convergence
+
+Plots energy and magnetization sweep-by-sweep for a single disorder sample and the disorder average (with error bands) from two starting conditions (random and ground state), to verify that the system has equilibrated before sampling.
+
+**`scripts/j1j2_disorder_sampling_analysis.py`** — disorder-averaged thermodynamics
 
 Loads disorder-sampling output, computes disorder averages of $\langle|m|\rangle$, $\langle m^2\rangle$, $\langle m^4\rangle$, $\langle e\rangle$, and the Binder cumulant $U_4 = 1 - \langle m^4\rangle / (3\langle m^2\rangle^2)$ with bootstrap error bars, and saves results and plots as a function of temperature.
 
 Key options: `--fixed_disorder` to load fixed-disorder files, `--disorder_seed` / `--disorder_sample` to select the realization, `--plot` / `--save` to control output.
 
-**`analysis/j1j2_comparison_exact_solution_plot.py`** — comparison with exact solution 
+**`scripts/j1j2_comparison_exact_solution_plot.py`** — comparison with exact solution 
 
 
 Loads the exact free energy from `data/exact/` and compares energy and specific heat (derived via numerical differentiation) against the MC disorder averages. The numerical exact solution is taken from Phys. Rev. E, 87, 043303 (arXiv:1301.1252v1), see https://github.com/a-alan-middleton/IsingPartitionFn.

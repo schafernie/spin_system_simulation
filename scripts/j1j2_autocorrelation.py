@@ -4,13 +4,8 @@ import os
 import re
 import matplotlib.pyplot as plt
 import numpy as np
+import spinlip as sp
 
-
-def calc_stats(vec):
-    n = len(vec)
-    if n == 1:
-        return np.mean(vec), 0
-    return np.mean(vec), np.sqrt(np.var(vec) / (n - 1))
 
 
 def main():
@@ -121,14 +116,14 @@ def main():
         nsamp[t] = len(mall)
         print(f"  disorder samples: {int(nsamp[t])}")
 
-        m[t],     m_err[t]     = calc_stats(mall)
-        m2[t],    m2_err[t]    = calc_stats(m2all)
-        m4[t],    m4_err[t]    = calc_stats(m4all)
-        e[t],     e_err[t]     = calc_stats(eall)
-        m_var[t], m_var_err[t] = calc_stats(
+        m[t],     m_err[t]     = sp.calc_stats(mall)
+        m2[t],    m2_err[t]    = sp.calc_stats(m2all)
+        m4[t],    m4_err[t]    = sp.calc_stats(m4all)
+        e[t],     e_err[t]     = sp.calc_stats(eall)
+        m_var[t], m_var_err[t] = sp.calc_stats(
             THERMAL_SAMPLES / (THERMAL_SAMPLES - 1) * (m2all - mall**2)
         )
-        e_var[t], e_var_err[t] = calc_stats(
+        e_var[t], e_var_err[t] = sp.calc_stats(
             THERMAL_SAMPLES / (THERMAL_SAMPLES - 1) * (e2all - eall**2)
         )
         # Binder cumulant B = 1 - <m^4> / (3 * <m^2>^2)

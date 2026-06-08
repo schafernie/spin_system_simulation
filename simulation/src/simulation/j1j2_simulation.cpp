@@ -17,7 +17,7 @@ void j1j2_equilibration(const Parameters& inParameters) {
     const double p2 = inParameters.p2;
     const double j2 = inParameters.j2;
     const int disorderSeed = inParameters.disorderSeed;
-    const int disorderSample = 0;
+    const int disorderSample = inParameters.disorderSample;
     const int thermalSeed = inParameters.thermalSeed;
     const unsigned int thermalEquilibrationTime = inParameters.thermalEquilibrationTime;
 
@@ -45,15 +45,15 @@ void j1j2_equilibration(const Parameters& inParameters) {
        << "_P" << fixed << setprecision(4) << p2
        << "_J" << fixed << setprecision(4) << j2
        << "_T" << fixed << setprecision(6) << temperature
-       << "_DisorderSeed" << disorderSeed << "_ThermalSeed" << thermalSeed;
+       << "_DisorderSeed" <<disorderSeed<<"_DisorderSample"<<disorderSample<< "_ThermalSeed" << thermalSeed;
 
     // Random start
     configuration.set_spins_rand(0.5, randomNumbers);
     ofstream file(path + ss.str() + "_RS_.dat");
-    file << "temperature: " << temperature << "; disorder seed: " << disorderSeed << "; thermal seed: " << thermalSeed << "\n";
-    file << "energy , magnetization\n";
+    file << "# temperature: " << temperature << " , disorder seed: " << disorderSeed<<" , disorder sample: " << disorderSample << " , thermal seed: " << thermalSeed << "\n";
+    file << "# time , energy , magnetization\n";
     for (unsigned int t = 0; t < thermalEquilibrationTime; t++) {
-        file << energy(lattice, j1j2, configuration) << " " << magnetization(configuration) << "\n";
+        file<< t<<" "<< energy(lattice, j1j2, configuration) << " " << magnetization(configuration) << "\n";
         mcmc_swendsen_wang(lattice, j1j2, beta, configuration, clusters, randomNumbers, 1);
     }
     file.close();
@@ -61,13 +61,14 @@ void j1j2_equilibration(const Parameters& inParameters) {
     // Ground state start
     configuration.set_spins(1);
     file.open(path + ss.str() + "_GS_.dat");
-    file << "temperature: " << temperature << "; disorder seed: " << disorderSeed << "; thermal seed: " << thermalSeed << "\n";
-    file << "energy magnetization\n";
+    file << "# temperature: " << temperature << " , disorder seed: " << disorderSeed <<" , disorder sample: " << disorderSample <<  " , thermal seed: " << thermalSeed << "\n";
+    file << "# energy magnetization\n";
     for (unsigned int t = 0; t < thermalEquilibrationTime; t++) {
-        file << energy(lattice, j1j2, configuration) << " " << magnetization(configuration) << "\n";
+        file<< t<<" " << energy(lattice, j1j2, configuration) << " " << magnetization(configuration) << "\n";
         mcmc_swendsen_wang(lattice, j1j2, beta, configuration, clusters, randomNumbers, 1);
     }
     file.close();
+    cout<<"ending.\n";
 }
 
 
@@ -122,11 +123,11 @@ void j1j2_disorder_sampling(const Parameters& inParameters) {
 
     ofstream file(path + ss.str());
     file << setprecision(15) << defaultfloat;
-    file << "#temperature: " << temperature << " ; p2: " << p2
-         << " ; equilibration time: " << thermalEquilibrationTime
-         << " ; thermal samples: " << thermalSamples
-         << " ; time between samples: " << thermalTimeBetweenSamples << "\n";
-    file << "#disorder sample , |m| , |m|^2 , |m|^3 , |m|^4 , e , e^2 , e^3 , e^4\n";
+    file << "# temperature: " << temperature << " , p2: " << p2
+         << " , equilibration time: " << thermalEquilibrationTime
+         << " , thermal samples: " << thermalSamples
+         << " , time between samples: " << thermalTimeBetweenSamples << "\n";
+    file << "# disorder sample , |m| , |m|^2 , |m|^3 , |m|^4 , e , e^2 , e^3 , e^4\n";
 
     std::vector<double> magnetizationSamples(thermalSamples);
     std::vector<double> energySamples(thermalSamples);
