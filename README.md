@@ -61,7 +61,7 @@ spin_system_simulation/
 │   ├── j1j2_equilibration_plot.py            # Equilibration convergence plots (single sample + disorder average)
 │   ├── j1j2_disorder_sampling_analysis.py    # Disorder-averaged magnetization, energy, Binder cumulant
 │   └── j1j2_comparison_exact_solution_plot.py # Compare MC results against exact free energy
-└── data/                                      # Generated simulation data (not tracked by git)
+└── data/                                      # Generated simulation data
 ```
 
 ## Building
