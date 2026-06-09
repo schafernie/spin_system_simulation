@@ -136,10 +136,6 @@ Each row is one disorder realization with columns:
 
 where $m = M/N$ and $e = E/N$ are per-spin quantities.
 
-**Bond maps** (written alongside disorder sampling):
-
-- `J1J2BondZ_D{D}_L{L}_P{p}_J{J2}_DisorderSeed{s}_DisorderSample{c}_.dat` — bond configuration for the 2D partition function
-
 ## Analysis Scripts
 
 All scripts read from `../data/new/` and write results to `../data/results/`.
@@ -153,6 +149,10 @@ Plots energy and magnetization sweep-by-sweep for a single disorder sample and t
 Loads disorder-sampling output, computes disorder averages of $\langle|m|\rangle$, $\langle m^2\rangle$, $\langle m^4\rangle$, $\langle e\rangle$, and the Binder cumulant $U_4 = 1 - \langle m^4\rangle / (3\langle m^2\rangle^2)$ with bootstrap error bars, and saves results and plots as a function of temperature.
 
 Key options: `--fixed_disorder` to load fixed-disorder files, `--disorder_seed` / `--disorder_sample` to select the realization, `--plot` / `--save` to control output.
+
+**`scripts/j1j2_autocorrelation_plot.py`** — autocorrelation analysis
+
+Computes the normalized autocorrelation function of the magnetization and energy from equilibration runs, averaging over disorder samples, and plots both the direct estimator and the FFT estimator alongside an exponential fit to extract the autocorrelation time $\tau_\mathrm{exp}$.
 
 **`scripts/j1j2_comparison_exact_solution_plot.py`** — comparison with exact solution 
 

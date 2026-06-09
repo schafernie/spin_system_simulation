@@ -11,7 +11,7 @@ def main():
     )
     parser.add_argument("--dimension",              "-D", type=int,   default=2,                help="Lattice dimension (default: 2)")
     parser.add_argument("--linear_size",            "-L", type=int,   default=32,               help="Linear system size (default: 32)")
-    parser.add_argument("--temperature",            "-T", type=float, default=0.908,            help="Temperature (default: 0.908)")
+    parser.add_argument("--temperature",            "-T", type=float, default=0.905883,            help="Temperature (default: 0.905883)")
     parser.add_argument("--occupation_probability", "-P", type=float, default=0.5,             help="J2 bond occupation probability (default: 0.5)")
     parser.add_argument("--bond_strength",          "-J", type=float, default=0.1,             help="Weak coupling J2 (default: 0.1)")
     parser.add_argument("--disorder_seed",                type=int,   default=0,               help="Disorder seed for single-sample plot (default: 0)")

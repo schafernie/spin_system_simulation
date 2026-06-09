@@ -16,7 +16,7 @@ NUM_SITES = LINEAR_SIZE ** 2
 # --- Load exact free energy ---
 exact_file = (
     f"J1J2FreeEnergy_P{P:.4f}_J{J:.4f}"
-    f"_DisorderSeed{DISORDER_SEED}_DisorderSample{DISORDER_SAMPLE}_MKL_.dat"
+    f"_DisorderSeed{DISORDER_SEED}_DisorderSample{DISORDER_SAMPLE}_.dat"
 )
 exact_data = np.loadtxt(DATA_PATH + "exact/" + exact_file, skiprows=1)
 T_exact = exact_data[:, 0]

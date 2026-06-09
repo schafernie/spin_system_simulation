@@ -16,7 +16,7 @@ cd "$ROOT_DIR/simulation"
 make
 cd "$ROOT_DIR"
 
-# --- 3. Equilibration ---
+# --- 3. Equilibration and autocorrelation ---
 echo "=== Running equilibration ==="
 cd "$ROOT_DIR/simulation"
 bash run_equilibration.sh
@@ -25,6 +25,13 @@ cd "$ROOT_DIR"
 echo "=== Running equilibration plot ==="
 cd "$ROOT_DIR/scripts"
 MPLBACKEND=Agg python3 j1j2_equilibration_plot.py \
+    --path_in "$ROOT_DIR/data/new/" \
+    --plot_path "$ROOT_DIR/plots/"
+cd "$ROOT_DIR"
+
+echo "=== Running autocorrelation plot ==="
+cd "$ROOT_DIR/scripts"
+MPLBACKEND=Agg python3 j1j2_autocorrelation_plot.py \
     --path_in "$ROOT_DIR/data/new/" \
     --plot_path "$ROOT_DIR/plots/"
 cd "$ROOT_DIR"
