@@ -128,7 +128,7 @@ def main():
     ax3.plot(t, avg_energy_gs, label="ground state start", color='blue')
     ax3.fill_between(t, avg_energy_gs - avg_energy_gs_err, avg_energy_gs + avg_energy_gs_err, alpha=0.3, color='blue')
     ax3.set_xlabel("sweeps")
-    ax3.set_ylabel(r"$e$")
+    ax3.set_ylabel(r"$[e]$")
     ax3.set_xlim([-10, MAXIMUM_TIME])
     ax3.legend()
 
